@@ -1,4 +1,29 @@
-//SQL commands to insert rows into the corresponding tables
+//SQL commands to create the corresponding tables 
+//Table Product
+CREATE TABLE Product (
+    Product_id VARCHAR(20) PRIMARY KEY,
+    Product_Name VARCHAR(50) NOT NULL,
+    Category VARCHAR(20),
+    Price DECIMAL(10, 2) CHECK (Price > 0)
+);
+
+//Table Customer
+CREATE TABLE Customer (
+    Customer_id VARCHAR(20) PRIMARY KEY,
+    Customer_Name VARCHAR(50) NOT NULL,
+    Customer_Tel VARCHAR(15)
+);
+
+//Table Orders
+CREATE TABLE Orders (
+    Customer_id VARCHAR(20),
+    Product_id VARCHAR(20),
+    Quantity INT,
+    OrderDate DATE DEFAULT CURRENT_DATE,
+    CONSTRAINT fk_customer FOREIGN KEY (Customer_id) REFERENCES Customer(Customer_id),
+    CONSTRAINT fk_product FOREIGN KEY (Product_id) REFERENCES Product(Product_id),
+    PRIMARY KEY (Customer_id, Product_id) 
+);
 
 //SQL commands to insert rows into the table Product
 INSERT INTO Product (Product_id, Product_Name, Category, Price)
